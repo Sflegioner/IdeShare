@@ -20,7 +20,7 @@ app.use("/API", router);
 
 app.listen(PORT, () => {
     console.log('SERVER START');
-});
+});  
 
 function createShemasForDB() {
     const newUser = new User({

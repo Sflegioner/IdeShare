@@ -31,13 +31,13 @@ router.post('/user', (req, res) => {
     };
     User.create(user).then(() => {
         console.log('User added');
-        res.status(201).send('User created successfully');
+        res.status(201).json(user);//not sure in it 
     }).catch((e) => {
         console.log(e);
         res.status(500).send('Error creating user');
     });
 });
-/**PUT - Update by email*/
+/**PUT - Update by mail*/
 router.put('/user', (req, res) => {
     const { username, useremail, userpass } = req.body;
     User.findOneAndUpdate({ useremail: useremail }, {useremail: useremail, userpass: userpass},{ new: true, runValidators: true } ).exec()
