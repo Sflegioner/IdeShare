@@ -37,22 +37,24 @@ class UserClient {
             body: JSON.stringify(body),
             credentials: 'include'
         });
-
         if (!response.ok) {
             throw new Error(`Error adding user: ${response.statusText}`);
         }
         const user: UserInterface = await response.json(); 
         console.log('Successfully added user to DB:', user);
         return user;
-
     }
 
-    async VerefyPassword(password:number, email:string):Promise<any>{
-        const reponse = await fetch(`${this.baseAPIurl}/user`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json', },
-            credentials: 'include'
+    async VerefyPassword(password: string, email: string): Promise<any> {
+        const response = await fetch(`${this.baseAPIurl}/vereficate_password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ userpass: password, useremail: email })
         });
+    
+        const data = await response.text();
+        return data;
     }
 }
 

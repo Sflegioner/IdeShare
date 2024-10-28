@@ -77,4 +77,24 @@ router.delete('/user', (req, res) => {
         });
 });
 
+router.post('/vereficate_password', async (req, res) => {
+    const { useremail, userpass } = req.body;
+    try {
+        const user = await User.findOne({ useremail: useremail });
+        if (!user) {
+            console.log("User not found.");
+            return res.status(404).send("User not found. Mail isn't correct or password");
+        }
+        if (user.userpass === userpass) {
+            console.log("Password verification successful.");
+            return res.status(200).send("Password verification successful");
+        } else {
+            console.log("Password verification failed.");
+            return res.status(401).send("Incorrect password");
+        }
+    } catch (error) {
+        console.error("Verification error:", error);
+        res.status(500).send("Error verifying password");
+    }
+});
 export default router;
