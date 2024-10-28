@@ -2,11 +2,18 @@ import mongoose from 'mongoose';
 import express from 'express';
 import User from './models/user_model.js';
 import router from './API/api_user_interactions.js';
+import cors from 'cors'
 
 const app = express();
 app.use(express.json());//middleware to use json
 const mongodb = mongoose;
 const PORT = 4444;
+
+const corsOptions = {
+    origin: 'http://localhost:3000', 
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true 
+  };
 
 mongodb.connect('mongodb://localhost:27017/IdeShare')
     .then(() => {
@@ -16,6 +23,7 @@ mongodb.connect('mongodb://localhost:27017/IdeShare')
         console.error('db connection error:', error);
     });
 
+app.use(cors(corsOptions))    
 app.use("/API", router);
 
 app.listen(PORT, () => {

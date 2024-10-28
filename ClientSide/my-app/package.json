@@ -11,7 +11,11 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.7",
+<<<<<<< HEAD
+    "node-fetch": "^3.3.2",
+=======
     "node-fetch": "2.6.1",
+>>>>>>> efa3999b138e04fb1ce048be85e0ede7967498cf
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
