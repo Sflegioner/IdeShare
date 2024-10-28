@@ -16,7 +16,7 @@ router.get('/user', (req, res) => {
                 "userpass": user.userpass
             }
         );
-    })
+})
 
         .catch(error => {
             res.status(500).send('Error');
