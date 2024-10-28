@@ -11,16 +11,15 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.7",
-<<<<<<< HEAD
     "node-fetch": "^3.3.2",
-=======
-    "node-fetch": "2.6.1",
->>>>>>> efa3999b138e04fb1ce048be85e0ede7967498cf
+    "process": "^0.11.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.95.0",
+    "webpack-dev-server": "^5.1.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -45,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.2.1"
   }
 }
