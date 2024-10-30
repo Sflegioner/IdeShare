@@ -1,5 +1,8 @@
 import express from 'express';
 import User from '../models/user_model.js';
+import bcrypt from 'bcrypt'
+
+const saltRounds = 10;
 
 const router = express.Router();
 /**GET user by email */
@@ -23,20 +26,24 @@ router.get('/user', (req, res) => {
         });
 });
 /**POST */
-router.post('/user', (req, res) => {
+router.post('/user', async (req, res) => {
     const { username, useremail, userpass } = req.body;
-    const user = {
-        username: username,
-        useremail: useremail,
-        userpass: userpass
-    };
-    User.create(user).then(() => {
+    try {
+        const hashedPassword = await bcrypt.hash(userpass, saltRounds);
+        
+        const user = {
+            username: username,
+            useremail: useremail,
+            userpass: hashedPassword
+        };
+
+        await User.create(user);
         console.log('User added');
-        res.status(201).json(user);//not sure in it 
-    }).catch((e) => {
-        console.log(e);
+        res.status(201).json(user);
+    } catch (error) {
+        console.log(error);
         res.status(500).send('Error creating user');
-    });
+    }
 });
 /**PUT - Update by mail*/
 router.put('/user', (req, res) => {
@@ -85,7 +92,7 @@ router.post('/vereficate_password', async (req, res) => {
             console.log("User not found.");
             return res.status(404).send("User not found. Mail isn't correct or password");
         }
-        if (user.userpass === userpass) {
+        if (bcrypt.compare(user.userpass, userpass)) {
             console.log("Password verification successful.");
             return res.status(200).send("Password verification successful");
         } else {
