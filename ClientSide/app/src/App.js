@@ -27,8 +27,48 @@ function App() {
           </ul>
         </div>
       </nav>
-      <div class="section-left"></div>
-      <div class="section-right"></div>
+      <div class="block-one">
+        <div class="section-left">
+          Explore ideas and collaborate to build projects
+        </div>
+        <div class="section-right">
+          <div class="picture">
+            <p class="picture-text">
+              Here you will see an authentic picture respresenting our company
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="dotted-container">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="block-two">
+        <div class="authenticate">
+          <button>Log in</button>
+          or
+          <button>Sign up</button>
+          and create your profile
+        </div>
+      </div>
+      <div class="dotted-container">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="block-three">
+        <div class="section-left">Apply to join projects</div>
+        <div class="section-right">
+          <div class="project-container">
+            <div class="container"></div>
+            <div class="container"></div>
+            <div class="container"></div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

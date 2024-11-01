@@ -1,8 +1,14 @@
+@font-face {
+  font-family: "K2D";
+  src: url("K2D-Regular.ttf");
+}
+
 :root {
   --my-height: 500px;
 }
 
 * {
+  font-family: "K2D";
   margin: 0;
   box-sizing: border-box;
   padding: 0;
@@ -71,17 +77,86 @@
   padding: 0px 15px;
   border-radius: 5px;
 }
-.section-left {
+.block-one .section-left {
   float: left;
-  height: 100vh;
-  background-color: grey;
-  width: 60%;
+  width: 50%;
   display: inline-block;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  font-size: 50px;
 }
-.section-right {
-  height: 100vh;
-  width: 40%;
-  background-color: antiquewhite;
-
+.block-one .section-right {
+  width: 50%;
+  height: 400px;
   display: inline-block;
+  padding: 40px;
+}
+.block-one {
+  padding: 30px;
+  background-color: #f3f2f2;
+}
+.picture {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #b0c5a2;
+  justify-content: center;
+  align-items: center;
+}
+.dotted-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Aligns dots in the center */
+  gap: 10px; /* Controls spacing between dots */
+  height: 175px; /* Length of the entire line */
+  justify-content: space-evenly; /* Distributes dots evenly */
+}
+
+.dot {
+  border-radius: 3px;
+  opacity: 65%;
+  width: 3px; /* Thickness of the line */
+  height: 16px; /* Height of each dot */
+  background-color: black; /* Dot color */
+}
+.authenticate {
+  background-color: #f3f2f2;
+  height: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.authenticate button {
+  align-self: center;
+  padding: 8px 16px;
+}
+.block-three .section-left {
+  float: left;
+  width: 40%;
+  height: 350px;
+  background-color: rgb(201, 201, 201);
+  font-size: 35px;
+  text-align: center;
+  align-content: center;
+}
+.block-three .section-right {
+  float: right;
+  width: 60%;
+  height: 350px;
+  background-color: rgb(247, 247, 247);
+  padding: 55px;
+}
+.project-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: #b0c5a2;
+  flex-direction: column;
+}
+.project-container .container {
+  flex: 1;
+  border: 0.5px solid black;
 }
