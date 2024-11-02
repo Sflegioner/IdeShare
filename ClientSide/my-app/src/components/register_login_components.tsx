@@ -10,23 +10,12 @@ interface InputDivProps {
   type?: string;
   placeholder: string;
 }
-<<<<<<< HEAD
 /// Винести це нахуй звідси
 // const [UserIsAuth,setUserIsAuth] = useEffect<Boolean>(false),[CheckIfAuth]
 // function CheckIfAuth(){
 // }
 ///
 const InputDiv: React.FC<InputDivProps> = ({ value, onChange, name, type = "text", placeholder }) => (
-=======
-
-const InputDiv: React.FC<InputDivProps> = ({
-  value,
-  onChange,
-  name,
-  type = "text",
-  placeholder,
-}) => (
->>>>>>> refs/remotes/origin/main
   <div style={{ position: "relative", height: "40px", width: "400px" }}>
     <div
       style={{
