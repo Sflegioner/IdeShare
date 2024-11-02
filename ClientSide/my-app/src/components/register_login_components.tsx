@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import UserClient, { UserInterface } from "../managers/user_client";
-import styled from 'styled-components';
 
 const userAPI = new UserClient();
 
@@ -11,12 +10,23 @@ interface InputDivProps {
   type?: string;
   placeholder: string;
 }
+<<<<<<< HEAD
 /// Винести це нахуй звідси
 // const [UserIsAuth,setUserIsAuth] = useEffect<Boolean>(false),[CheckIfAuth]
 // function CheckIfAuth(){
 // }
 ///
 const InputDiv: React.FC<InputDivProps> = ({ value, onChange, name, type = "text", placeholder }) => (
+=======
+
+const InputDiv: React.FC<InputDivProps> = ({
+  value,
+  onChange,
+  name,
+  type = "text",
+  placeholder,
+}) => (
+>>>>>>> refs/remotes/origin/main
   <div style={{ position: "relative", height: "40px", width: "400px" }}>
     <div
       style={{
@@ -26,7 +36,7 @@ const InputDiv: React.FC<InputDivProps> = ({ value, onChange, name, type = "text
         width: "400px",
         height: "36px",
         backgroundColor: "#F3F2F2",
-        zIndex: 2
+        zIndex: 2,
       }}
     />
     <input
@@ -58,7 +68,7 @@ const InputDiv: React.FC<InputDivProps> = ({ value, onChange, name, type = "text
         width: "404px",
         height: "36px",
         backgroundColor: "#B0C5A2",
-        zIndex: 1
+        zIndex: 1,
       }}
     />
   </div>
@@ -68,7 +78,7 @@ export const Register_Form: React.FC = () => {
   const [user, setUser] = useState<UserInterface>({
     username: "",
     useremail: "",
-    userpass: ""
+    userpass: "",
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -117,12 +127,15 @@ export const Register_Form: React.FC = () => {
 export const Login_Form: React.FC = () => {
   const [user, setUser] = useState({
     useremail: "",
-    userpass: ""
+    userpass: "",
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const verification = await userAPI.VerefyPassword(user.userpass, user.useremail);
+    const verification = await userAPI.VerefyPassword(
+      user.userpass,
+      user.useremail
+    );
     console.log("Verification result:", verification);
   };
 
@@ -155,5 +168,3 @@ export const Login_Form: React.FC = () => {
     </form>
   );
 };
-
-const StyledForm = styled.form``;
