@@ -4,27 +4,7 @@ export const MainPage = () => {
     return (
         <>
             <div>
-                <nav className="navbar">
-                    <div className="left">
-                        <ul>
-                            <li>
-                                <img id="logo" alt="logo" src="icon3.png" /> IdeShare
-                            </li>
-                            <li>All posts</li>
-                            <li>
-                                <input className="nav-input" />
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="right">
-                        <ul>
-                            <li>
-                                <button id="create-button">Create a post</button>
-                            </li>
-                            <li>Profile</li>
-                        </ul>
-                    </div>
-                </nav>
+                {}
                 <div className="block-one">
                     <div className="section-left">
                         Explore ideas and collaborate to build projects

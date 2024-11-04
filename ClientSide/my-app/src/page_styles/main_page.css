@@ -30,6 +30,7 @@
 .right {
     float: right;
     margin-top: -3px;
+    margin-right: 5px;
 }
 
 .navbar ul {
@@ -47,11 +48,11 @@
     align-items: center;
     height: 40px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .navbar li:hover {
     color: white;
-    text-decoration: underline;
 }
 
 #logo {
