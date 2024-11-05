@@ -1,52 +1,56 @@
-import mongoose from 'mongoose';
-import express from 'express';
-import User from './models/user_model.js';
-import router from './API/api_user_interactions.js';
-import cors from 'cors'
+import mongoose from "mongoose";
+import express from "express";
+import User from "./models/user_model.js";
+import cors from "cors";
+import user_router from "./API/api_user_interactions.js";
+import post_router from "./API/api_post_interactions.js";
 
 const app = express();
-app.use(express.json());//middleware to use json
+app.use(express.json()); //middleware to use json
 const mongodb = mongoose;
 const PORT = 4444;
 
 const corsOptions = {
-    origin: 'http://localhost:3000', 
-    methods: 'GET,POST,PUT,DELETE',
-    credentials: true 
-  };
+  origin: "http://localhost:3000",
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true,
+};
 
-mongodb.connect('mongodb://localhost:27017/IdeShare')
-    .then(() => {
-        console.log('db connected');
-    })
-    .catch((error) => {
-        console.error('db connection error:', error);
-    });
+mongodb
+  .connect("mongodb://localhost:27017/IdeShare")
+  .then(() => {
+    console.log("db connected");
+  })
+  .catch((error) => {
+    console.error("db connection error:", error);
+  });
 
-app.use(cors(corsOptions))    
-app.use("/API", router);
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true }));
+app.use("/API", user_router);
+app.use("/API", post_router);
 
 app.listen(PORT, () => {
-    console.log('SERVER START');
-});  
+  console.log("SERVER START");
+});
 
 function createShemasForDB() {
-    const newUser = new User({
-    });
+  const newUser = new User({});
 
-    newUser.save()
-        .then(() => {
-            console.log("User created successfully");
-        })
-        .catch((e) => {
-            console.log(e);
-        });
+  newUser
+    .save()
+    .then(() => {
+      console.log("User created successfully");
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 }
 
-process.on('SIGINT', function () {
-    server.close(() => {
-        console.log(chalk.blue('Shutting down server'));
-        process.exit();
-    });
+process.on("SIGINT", function () {
+  server.close(() => {
+    console.log(chalk.blue("Shutting down server"));
+    process.exit();
+  });
 });
 export default app;
