@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserClient, { UserInterface } from "../managers/user_client";
+import Cookies,{ useCookies } from 'react-cookie'
+import { timeEnd } from "console";
 
 const userAPI = new UserClient();
 
@@ -10,13 +12,54 @@ interface InputDivProps {
   type?: string;
   placeholder: string;
 }
-/// Винести це нахуй звідси
-// const [UserIsAuth,setUserIsAuth] = useEffect<Boolean>(false),[CheckIfAuth]
-// function CheckIfAuth(){
-// }
-///
+
+interface ButtonSubmitProps {
+  text: string;
+}
+
+const ButtonSubmit: React.FC<ButtonSubmitProps> = ({ text }) => (
+  <button
+    style={{
+      outline: "none",
+      backgroundColor: "transparent",
+      position: "relative",
+      width: "100px",
+      height: "45px",
+      fontSize: "16px",
+      cursor: "pointer",
+      border: "none",
+      color: "#4A4A4A", 
+      zIndex: 3,
+    }}
+    type="submit"
+  >
+    {text}
+    <div
+      style={{
+        position: "absolute",
+        top: "-4px",
+        left: "2px",
+        width: "100px",
+        height: "43px",
+        backgroundColor: "#F3F2F2",
+        zIndex: -1,
+      }}
+    />
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "105px",
+        height: "45px",
+        backgroundColor: "#B0C5A2",
+        zIndex: -2,
+      }}
+    />
+  </button>
+);
 const InputDiv: React.FC<InputDivProps> = ({ value, onChange, name, type = "text", placeholder }) => (
-  <div style={{ position: "relative", height: "40px", width: "400px" }}>
+  <div style={{ marginBottom:10, position: "relative", height: "40px", width: "400px",}}>
     <div
       style={{
         position: "absolute",
@@ -41,7 +84,7 @@ const InputDiv: React.FC<InputDivProps> = ({ value, onChange, name, type = "text
         padding: "8px",
         border: "none",
         outline: "none",
-        top: -10,
+        top: -6,
         left: 5,
         zIndex: 3,
         fontSize: 20,
@@ -64,6 +107,7 @@ const InputDiv: React.FC<InputDivProps> = ({ value, onChange, name, type = "text
 );
 
 export const Register_Form: React.FC = () => {
+  const [cookies, setCookie] = useCookies();
   const [user, setUser] = useState<UserInterface>({
     username: "",
     useremail: "",
@@ -105,15 +149,13 @@ export const Register_Form: React.FC = () => {
         type="password"
         placeholder="Write your password"
       />
-      <button style={{ width: "70px", height: "40px" }} type="submit">
-        Submit
-      </button>
+      <ButtonSubmit text="Register" />
     </form>
   );
 };
 
-// Форма входу з кастомним InputDiv
 export const Login_Form: React.FC = () => {
+  const [cookies, setCookie] = useCookies();
   const [user, setUser] = useState({
     useremail: "",
     userpass: "",
@@ -121,11 +163,15 @@ export const Login_Form: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const verification = await userAPI.VerefyPassword(
-      user.userpass,
-      user.useremail
-    );
+    const verification = await userAPI.VerefyPassword(user.userpass, user.useremail);
     console.log("Verification result:", verification);
+    //Змінити цю хуйню на нормалій реквест з булом
+    if(verification=="Password verification successful"){
+      setCookie("IsAuth",true, {maxAge: 30})
+    }
+    else{
+      console.log("Wrong")
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,9 +197,7 @@ export const Login_Form: React.FC = () => {
         type="password"
         placeholder="Your password"
       />
-      <button style={{ width: "70px", height: "40px" }} type="submit">
-        Submit
-      </button>
+      <ButtonSubmit text="Login" />
     </form>
   );
 };
