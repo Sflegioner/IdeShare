@@ -16,7 +16,7 @@ export const Nav_Bar = () => {;
                         <li onClick={() => navigateToPage('/')}>
                             <img id="logo" alt="logo" src="icon3.png" /> IdeShare 
                         </li>
-                        <li>All posts</li>
+                        <li  onClick={() => navigateToPage('/all_posts')}style={{ marginLeft: 5, fontSize:16}}id="create-button">All post</li>
                         <li>
                             <input className="nav-input" />
                         </li>
@@ -25,7 +25,7 @@ export const Nav_Bar = () => {;
                 <div className="right">
                     <ul>
                         <li>
-                            <button id="create-button">Create a post</button>
+                            <button onClick={() => navigateToPage('/create_post')} id="create-button">Create a post</button>
                             <button onClick={() => navigateToPage('/login_registration_page')}style={{ marginLeft: 5 }}id="create-button">
                                 Login/Register
                             </button>

@@ -4,6 +4,7 @@ const ObjectId = Schema.ObjectId;
 
 const UserPost = new mongoose.Schema({
   user_author: { type: ObjectId, required: true },
+  short_description:{type:String},
   title: { type: String, required: true },
   reaction: {
     likes: { type: Number, default: 0 },

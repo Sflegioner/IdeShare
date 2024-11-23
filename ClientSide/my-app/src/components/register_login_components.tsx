@@ -167,7 +167,7 @@ export const Login_Form: React.FC = () => {
     console.log("Verification result:", verification);
     //Змінити цю хуйню на нормалій реквест з булом
     if(verification=="Password verification successful"){
-      setCookie("IsAuth",true, {maxAge: 30})
+      setCookie("IsAuth",true, {maxAge: 3000})
     }
     else{
       console.log("Wrong")
