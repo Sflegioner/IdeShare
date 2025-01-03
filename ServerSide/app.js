@@ -17,7 +17,7 @@ const corsOptions = {
 };
 
 mongodb
-  .connect("mongodb://localhost:27017/IdeShare")
+  .connect("mongodb://127.0.0.1:27017/IdeShare")
   .then(() => {
     console.log("db connected");
   })

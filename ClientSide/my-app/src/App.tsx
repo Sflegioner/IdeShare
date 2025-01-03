@@ -9,6 +9,8 @@ import { ProtectedRoute } from './managers/user_session_checker';
 import { ProfilePage } from './pages/profile_page';
 import { CreatePostPage } from './pages/create_post_page';
 import {AllPostPage} from './pages/all_post'
+import { Logout } from './components/logout_component';
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route path='/profile_page' element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           <Route path='/create_post' element={<ProtectedRoute><CreatePostPage /></ProtectedRoute>} />
           <Route path='/all_posts' element={<ProtectedRoute><AllPostPage /></ProtectedRoute>} />
+          <Route path='/logout' element={<ProtectedRoute><Logout></Logout></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </>
