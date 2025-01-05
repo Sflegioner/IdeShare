@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UserClient, { UserInterface } from "../managers/user_client";
-import Cookies,{ useCookies } from 'react-cookie'
+import т,{ useCookies } from 'react-cookie'
 import { timeEnd } from "console";
 import { useNavigate } from "react-router-dom";
 

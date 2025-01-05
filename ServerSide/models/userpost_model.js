@@ -12,6 +12,7 @@ const UserPost = new mongoose.Schema({
     wow_reactions: { type: Number, default: 0 },
   },
   views: { type: Number, default: 0 },
+  tags:[],
 });
 const Post = mongoose.model("Post", UserPost);
 

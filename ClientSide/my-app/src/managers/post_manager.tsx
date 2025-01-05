@@ -8,6 +8,7 @@ export interface PostInterface {
         wow_reactions: number;
     };
     views: number;
+    tags: Array<string>
 }
 
 export class PostClient {
@@ -20,17 +21,17 @@ export class PostClient {
             credentials: 'include'
         });
         const data = await response.json();
-        //MAPPING THIS SHIT 
         const objectInterface: PostInterface[] = data.map((item: any) => ({
             user_author: item.user_author,
             title: item.title,
-            short_description:item.short_description,
+            short_description: item.short_description,
             reaction: {
                 likes: item.reaction.likes,
                 dislikes: item.reaction.dislikes,
-                wow_reactions: item.reaction.wow_reactions
+                wow_reactions: item.reaction.wow_reactions,
             },
-            views: item.views
+            views: item.views,
+            tags: item.tags || [] 
         }));
         console.log(objectInterface);
         return objectInterface;
