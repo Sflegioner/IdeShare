@@ -14,14 +14,12 @@ user_router.get("/user", (req, res) => {
       if (!user) {
         return res.status(404).send("User not found");
       }
-      res.send({
+      res.send({  
         username: user.username,
         useremail: user.useremail,
         userpass: user.userpass,
       });
-    })
-
-    .catch((error) => {
+    }).catch((error) => {
       res.status(500).send("Error");
     });
 });
@@ -100,9 +98,13 @@ user_router.post("/vereficate_password", async (req, res) => {
         .status(404)
         .send("User not found. Mail isn't correct or password");
     }
-    if (bcrypt.compare(user.userpass, userpass)) {
+    const isPasswordCorrect = await bcrypt.compare(userpass, user.userpass);
+    if (isPasswordCorrect) {
       console.log("Password verification successful.");
-      return res.status(200).send("Password verification successful");
+      return res.status(200).send({
+        message: "Password verification successful",
+        userId: user._id, 
+      });
     } else {
       console.log("Password verification failed.");
       return res.status(401).send("Incorrect password");
