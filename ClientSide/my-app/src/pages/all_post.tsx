@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PostClient, PostInterface } from "../managers/post_manager";
 import "../page_styles/post_page.css"
+import { useNavigate } from "react-router-dom";
 
 async function fetchPosts(): Promise<PostInterface[]> {
     const post_client = new PostClient();
@@ -15,6 +16,8 @@ function OpenPost(){
     console.log("Open Post")//TODO: Add post opener
 }
 
+
+
 function AddSometing(){
 
 }
@@ -22,6 +25,13 @@ function AddSometing(){
 export const AllPostPage = () => {
     const [posts, setPosts] = useState<PostInterface[] | null>(null);
     const [loading, setLoading] = useState(true);
+    
+    const navigate = useNavigate();
+
+    function Apply(id: string | undefined){
+        console.log("Apply")
+        navigate("/apply", {state: {postId: id}})
+    }
 
     useEffect(() => {
         fetchPosts()
@@ -33,6 +43,8 @@ export const AllPostPage = () => {
     if (loading) {
         return <div>ZzZzzZZZzzz</div>;
     }
+
+    
 
     return (
         <div className="post-page">
@@ -48,6 +60,11 @@ export const AllPostPage = () => {
 
                         <div className="reactions-bar">
                             <ul className="ul-reactions">
+                                <li>
+                                <button onClick={() =>Apply(post.id)} id="apply">
+                                    Apply
+                                </button>
+                                </li>
                                 <li className="reaction-item">
                                     <img src="like.png" width={20} height={20} alt="like" />
                                     <span>{post.reaction.likes}</span>

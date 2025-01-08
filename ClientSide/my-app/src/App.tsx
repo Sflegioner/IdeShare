@@ -10,6 +10,7 @@ import { ProfilePage } from './pages/profile_page';
 import { CreatePostPage } from './pages/create_post_page';
 import {AllPostPage} from './pages/all_post'
 import { Logout } from './components/logout_component';
+import { ApplyPage } from './pages/apply';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path='/login_registration_page' element={<LoginRegistrationPage />} />
           <Route path='/profile_page' element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           <Route path='/create_post' element={<ProtectedRoute><CreatePostPage /></ProtectedRoute>} />
+          <Route path='/apply' element={<ProtectedRoute><ApplyPage /></ProtectedRoute>} />
           <Route path='/all_posts' element={<ProtectedRoute><AllPostPage /></ProtectedRoute>} />
           <Route path='/logout' element={<ProtectedRoute><Logout></Logout></ProtectedRoute>} />
         </Routes>

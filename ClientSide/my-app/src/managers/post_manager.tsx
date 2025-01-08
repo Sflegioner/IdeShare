@@ -8,6 +8,7 @@ export interface PostInterface {
         wow_reactions: number;
     };
     views: number;
+    id?: string;
 }
 
 export class PostClient {
@@ -30,7 +31,8 @@ export class PostClient {
                 dislikes: item.reaction.dislikes,
                 wow_reactions: item.reaction.wow_reactions
             },
-            views: item.views
+            views: item.views,
+            id: item._id
         }));
         console.log(objectInterface);
         return objectInterface;
