@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UserClient, { UserInterface } from "../managers/user_client";
-import Cookies,{ useCookies } from 'react-cookie'
+import т,{ useCookies } from 'react-cookie'
 import { timeEnd } from "console";
 import { useNavigate } from "react-router-dom";
 
@@ -166,15 +166,14 @@ export const Login_Form: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const verification = await userAPI.VerefyPassword(user.userpass, user.useremail);
-    console.log("Verification result:", verification);
+    console.log("Verification result:", verification.message);
     //Змінити цю хуйню на нормалій реквест з булом
-    if(verification=="Password verification successful"){
-      setCookie("IsAuth",true, {maxAge: 30000})
-      redirect('/')
-
-    }
-    else{
-      console.log("Wrong")
+    if (verification?.message === "Password verification successful") {
+      setCookie("IsAuth", true, { maxAge: 30000 }); 
+      setCookie("userId", verification.userId, { maxAge: 30000 }); 
+      redirect("/");
+    } else {
+      console.log("Wrong");
     }
   };
 

@@ -4,9 +4,9 @@ import Post from "../models/userpost_model.js";
 const post_router = express.Router();
 
 post_router.post("/post", async (req, res) => {
-  const { user_author, title, short_description } = req.body;
+  const { user_author, title, short_description, tags } = req.body; 
   try {
-    const post = { user_author, title, short_description };
+    const post = { user_author, title, short_description, tags }; 
     const createdPost = await Post.create(post);
     console.log("Post added");
     res.status(201).json(createdPost);

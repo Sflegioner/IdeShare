@@ -53,7 +53,7 @@ class UserClient {
             body: JSON.stringify({ userpass: password, useremail: email })
         });
     
-        const data = await response.text();
+        const data = await response.json();
         return data;
     }
 }

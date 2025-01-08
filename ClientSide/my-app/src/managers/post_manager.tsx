@@ -9,11 +9,12 @@ export interface PostInterface {
     };
     views: number;
     id?: string;
+    tags: Array<string>;
 }
 
 export class PostClient {
     private base_api_url = "http://localhost:4444/API";
-    //Getting post  
+    //Getting post
     async GetPost(): Promise<PostInterface[]> {
         const response = await fetch(`${this.base_api_url}/post`, {
             method: "GET",
@@ -21,23 +22,23 @@ export class PostClient {
             credentials: 'include'
         });
         const data = await response.json();
-        //MAPPING THIS SHIT 
         const objectInterface: PostInterface[] = data.map((item: any) => ({
             user_author: item.user_author,
             title: item.title,
-            short_description:item.short_description,
+            short_description: item.short_description,
             reaction: {
                 likes: item.reaction.likes,
                 dislikes: item.reaction.dislikes,
-                wow_reactions: item.reaction.wow_reactions
+                wow_reactions: item.reaction.wow_reactions,
             },
             views: item.views,
-            id: item._id
+            id: item._id,
+            tags: item.tags || []
         }));
         console.log(objectInterface);
         return objectInterface;
     }
-    //Posting post 
+    //Posting post
     async PostPost(body: PostInterface): Promise<any> {
         const response = await fetch(`${this.base_api_url}/post`, {
             method: "POST",

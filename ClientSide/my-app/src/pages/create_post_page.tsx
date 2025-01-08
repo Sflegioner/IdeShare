@@ -1,40 +1,48 @@
 import React, { useState } from "react";
 import { PostClient } from "../managers/post_manager";
 
-function GetPostFunc(){
-    const postClient = new PostClient();
-    async function GetPostFunc() {
-        const posts = await postClient.GetPost();
-        console.log(posts);
-    }
-    async function F() {
-        const posts = await postClient.GetPost();
-        console.log(posts);
-    }
-
-    return (
-        <>
-            <div>
-                <button onClick={GetPostFunc}>GetPostFunc</button>
-            </div>
-        </>
-    );
-};
-
 export const CreatePostPage = () => {
     const postClient = new PostClient();
+
+    const listOfTags = ["#IT", "#AI", "#host", "#games", "#PC", "#GAY", "#ROFL"]; 
 
     const [formData, setFormData] = useState({
         user_author: "",
         title: "",
+        short_description: "",
         likes: 0,
         dislikes: 0,
-        short_description:"",
         wow_reactions: 0,
-        views: 0
+        views: 0,
+        tags: [] as string[] 
     });
 
-    const handleChange = (e:any) => {
+    const [searchTerm, setSearchTerm] = useState(""); 
+    const [filteredTags, setFilteredTags] = useState(listOfTags);
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const term = e.target.value.toLowerCase();
+        setSearchTerm(term);
+        setFilteredTags(listOfTags.filter(tag => tag.toLowerCase().includes(term)));
+    };
+
+    const handleTagClick = (tag: string) => {
+        if (!formData.tags.includes(tag)) {
+            setFormData({
+                ...formData,
+                tags: [...formData.tags, tag]
+            });
+        }
+    };
+
+    const handleTagRemoval = (tag: string) => {
+        setFormData({
+            ...formData,
+            tags: formData.tags.filter(t => t !== tag)
+        });
+    };
+
+    const handleChange = (e: any) => {
         const { name, value, type } = e.target;
         setFormData({
             ...formData,
@@ -42,19 +50,20 @@ export const CreatePostPage = () => {
         });
     };
 
-    const handleSubmit = async (e:any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         const newPost = {
             user_author: formData.user_author,
             title: formData.title,
-            short_description:formData.short_description,
+            short_description: formData.short_description,
             reaction: {
                 likes: formData.likes,
                 dislikes: formData.dislikes,
                 wow_reactions: formData.wow_reactions
             },
-            views: formData.views
+            views: formData.views,
+            tags: formData.tags
         };
 
         try {
@@ -70,10 +79,9 @@ export const CreatePostPage = () => {
     return (
         <div>
             <h2>Create New Post</h2>
-            <p>___________________________________________________________________________________________</p>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>ID:672bcb01e459b7fbf0f7e895</label>
+                    <label>User Author:</label>
                     <input
                         type="text"
                         name="user_author"
@@ -93,7 +101,7 @@ export const CreatePostPage = () => {
                     />
                 </div>
                 <div>
-                    <label>Short description:</label>
+                    <label>Short Description:</label>
                     <input
                         type="text"
                         name="short_description"
@@ -103,49 +111,54 @@ export const CreatePostPage = () => {
                     />
                 </div>
                 <div>
-                    <label>Likes:</label>
+                    <label>Tags:</label>
                     <input
-                        type="number"
-                        name="likes"
-                        value={formData.likes}
-                        onChange={handleChange}
-                        required
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder=""
                     />
+                    <div style={{ border: "1px solid #ccc", padding: "5px", maxHeight: "100px", overflowY: "auto" }}>
+                        {filteredTags.map(tag => (
+                            <span
+                                key={tag}
+                                style={{
+                                    display: "inline-block",
+                                    margin: "5px",
+                                    padding: "5px 10px",
+                                    border: "1px solid #000",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    backgroundColor: formData.tags.includes(tag) ? "#ddd" : "#fff"
+                                }}
+                                onClick={() => handleTagClick(tag)}
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    <div>
+                        <strong>Selected Tags:</strong>
+                        {formData.tags.map(tag => (
+                            <span
+                                key={tag}
+                                style={{
+                                    display: "inline-block",
+                                    margin: "5px",
+                                    padding: "5px 10px",
+                                    border: "1px solid #000",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                    backgroundColor: "#ffcccc"
+                                }}
+                                onClick={() => handleTagRemoval(tag)}
+                            >
+                                {tag} (Delet Tag)
+                            </span>
+                        ))}
+                    </div>
                 </div>
-                <div>
-                    <label>Dislikes:</label>
-                    <input
-                        type="number"
-                        name="dislikes"
-                        value={formData.dislikes}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Wow Reactions:</label>
-                    <input
-                        type="number"
-                        name="wow_reactions"
-                        value={formData.wow_reactions}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Views:</label>
-                    <input
-                        type="number"
-                        name="views"
-                        value={formData.views}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Create Post</button>  
-                <p>___________________________________________________________________________________________</p>
-                {GetPostFunc()}
-                <p>___________________________________________________________________________________________</p>
+                <button type="submit">Create Post</button>
             </form>
         </div>
     );

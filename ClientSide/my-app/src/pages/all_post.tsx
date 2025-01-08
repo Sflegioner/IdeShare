@@ -8,8 +8,8 @@ async function fetchPosts(): Promise<PostInterface[]> {
     return post_client.GetPost();
 }
 
-function AddViews(){
-    
+function AddViews() {
+    // TODO: Add view counter functionality
 }
 
 function OpenPost(){
@@ -41,21 +41,23 @@ export const AllPostPage = () => {
     }, []);
 
     if (loading) {
-        return <div>ZzZzzZZZzzz</div>;
+        return <div>Loading...</div>;
     }
 
-    
+
 
     return (
         <div className="post-page">
             <div>
                 {posts?.map((post, index) => (
-                    <div key={index} className="post-body" onClick={OpenPost}
+                    <div
+                        key={index}
+                        className="post-body"
+                        onClick={OpenPost}
                         style={{ border: "1px solid #ccc", padding: "10px", margin: "10px 0" }}
                     >
                         <h2 className="post-title">{post.title}</h2>
-                        <p>auth: {post.user_author}</p>
-
+                        <p>Auth: {post.user_author}</p>
                         <p className="post-description">{post.short_description}</p>
 
                         <div className="reactions-bar">
@@ -78,6 +80,21 @@ export const AllPostPage = () => {
                                     <span>{post.reaction.wow_reactions}</span>
                                 </li>
                             </ul>
+                        </div>
+                        <div className="tags-container">
+                            <strong>Tags: </strong>
+                            {post.tags.length > 0 ? (
+                                post.tags.map((tag, tagIndex) => (
+                                    <span
+                                        key={tagIndex}
+                                        className="tag-item"
+                                    >
+                                        {tag}
+                                    </span>
+                                ))
+                            ) : (
+                                <span>No tags</span>
+                            )}
                         </div>
                     </div>
                 ))}
