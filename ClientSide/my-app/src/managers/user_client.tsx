@@ -1,3 +1,5 @@
+import { json } from "stream/consumers";
+
 export interface UserInterface {
     username: string;
     useremail: string;
@@ -6,12 +8,15 @@ export interface UserInterface {
 
 class UserClient {
     private baseAPIurl = "http://localhost:4444/API";
-    async GetUser(useremail: string): Promise<UserInterface> {
-        const response = await fetch(`${this.baseAPIurl}/user?useremail=${useremail}`, {
+    async GetUser(userid: string): Promise<UserInterface> {
+        const response = await fetch(`${this.baseAPIurl}/user?userid=${encodeURIComponent(userid)}`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json', },
-            credentials: 'include'
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
         });
+        if (!response.ok) {
+            throw new Error(`Error fetching user: ${response.statusText}`);
+        }
         const user: UserInterface = await response.json();
         console.log('Successfully fetched user:', user);
         return user;
@@ -55,6 +60,27 @@ class UserClient {
     
         const data = await response.json();
         return data;
+    }
+    async GetUserPhotoAvatar(id: string): Promise<string> {
+        return `http://localhost:4444/API_USER/user_photo/${encodeURIComponent(id)}`;
+    }
+    async PostUserPhotoAvatar(id: string, image: File): Promise<string> {
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('image', image);
+
+        const response = await fetch(`http://localhost:4444/API_USER/user_photo/`, {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error uploading user photo: ${response.statusText}`);
+        }
+
+        const { image_path } = await response.json();
+        return image_path;
     }
 }
 

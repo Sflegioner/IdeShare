@@ -5,10 +5,15 @@ import bcrypt from "bcrypt";
 const saltRounds = 10;
 
 const user_router = express.Router();
-/**GET user by email */
+/**GET user by id */
 user_router.get("/user", (req, res) => {
-  const email = req.body.useremail;
-  User.findOne({ useremail: email })
+  const id = req.query.userid;
+
+  if (!id) {
+    return res.status(400).send("Id is required");
+  }
+
+  User.findOne({ _id: id })
     .exec()
     .then((user) => {
       if (!user) {
@@ -20,10 +25,11 @@ user_router.get("/user", (req, res) => {
         userpass: user.userpass,
       });
     }).catch((error) => {
-      res.status(500).send("Error");
+      console.error("Error fetching user:", error);
+      res.status(500).send("Internal Server Error");
     });
 });
-/**POST */
+/**POST*/
 user_router.post("/user", async (req, res) => {
   const { username, useremail, userpass } = req.body;
   try {
