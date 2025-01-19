@@ -2,6 +2,49 @@
     font-family: "K2D";
     src: url("K2D-Regular.ttf");
 }
+.search-bar-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px; /* Максимальна ширина пошукової панелі */
+    margin: auto;
+}
+
+.nav-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.ListBox {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+    z-index: 1000; 
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.list-item {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+.list-item:hover {
+    background-color: #9cff91; 
+}
 
 :root {
     --my-height: 500px;

@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import '../page_styles/main_page.css';
 import { useCookies } from "react-cookie";
+import { InputSearchBar } from "./search_bar_components/search_bar";
+
 
 export const Nav_Bar = () => {
     ;
@@ -40,7 +42,7 @@ export const Nav_Bar = () => {
                         </li>
                         <li onClick={() => navigateToPage('/all_posts')} style={{ marginLeft: 5, fontSize: 16 }} id="create-button">All post</li>
                         <li>
-                            <input className="nav-input" />
+                            <InputSearchBar/>
                         </li>
                     </ul>
                 </div>
