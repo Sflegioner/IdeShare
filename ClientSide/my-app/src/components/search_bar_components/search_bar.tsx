@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 async function fetchSimilarPost(letters: string) {
     const response = await fetch(`http://localhost:4444/API/search_posts/?letters=${letters}`, {
@@ -7,33 +8,49 @@ async function fetchSimilarPost(letters: string) {
         credentials: "include",
     });
     const data = await response.json();
+    console.log("Fetched posts:", data);
     return data;
 }
 
 export const InputSearchBar = () => {
-    const [searchText, setSearchText] = useState<string>(""); // Текст введення
-    const [results, setResults] = useState<any[]>([]); // Результати пошуку
-    const [isLoading, setIsLoading] = useState<boolean>(false); // Стан завантаження
-    const [isFocused, setIsFocused] = useState<boolean>(false); // Стан фокусу на полі вводу
+    const [searchText, setSearchText] = useState<string>("");
+    const [results, setResults] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
 
-    // Затримка (debounce) для пошуку
+    const navigate = useNavigate();
+
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
             if (searchText.trim()) {
                 setIsLoading(true);
                 fetchSimilarPost(searchText)
                     .then((data) => {
-                        setResults(data);
+                        if (Array.isArray(data)) {
+                            setResults(data);
+                        } else {
+                            console.error("Data format is not an array:", data);
+                            setResults([]);
+                        }
                     })
                     .catch((error) => console.error("Error fetching posts:", error))
                     .finally(() => setIsLoading(false));
             } else {
-                setResults([]); // Якщо поле порожнє, очищуємо результати
+                setResults([]);
             }
-        }, 300); // Затримка у 300 мс
+        }, 300);
 
-        return () => clearTimeout(delayDebounce); // Очищаємо попередній таймер
+        return () => clearTimeout(delayDebounce);
     }, [searchText]);
+
+    const handleResultClick = (postId: string | undefined) => {
+        if (!postId) {
+            console.error("Post ID is undefined");
+            return;
+        }
+        console.log("Post ID clicked:", postId);
+        navigate(`/all_posts`, { state: { postId } });
+    };
 
     return (
         <div className="search-bar-container">
@@ -42,15 +59,19 @@ export const InputSearchBar = () => {
                 placeholder="Search posts..."
                 className="nav-input"
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)} // Оновлюємо текст введення
-                onFocus={() => setIsFocused(true)} // Встановлюємо фокус
-                onBlur={() => setIsFocused(false)} // Знімаємо фокус
+                onChange={(e) => setSearchText(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setTimeout(() => setIsFocused(false), 200)} 
             />
             {isFocused && results.length > 0 && (
                 <div className="ListBox">
                     <div className="results-grid">
                         {results.map((result, index) => (
-                            <div key={index} className="list-item">
+                            <div
+                                key={result._id || index} 
+                                className="list-item"
+                                onMouseDown={() => handleResultClick(result._id)} 
+                            >
                                 <p>{result.title}</p>
                             </div>
                         ))}
