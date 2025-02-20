@@ -86,4 +86,46 @@ post_router.delete("/post/:id", async (req, res) => {
   }
 });
 
+//______________________________________up_vote_____________________________________________________//
+post_router.post("/upvote/:id/:id_user", async (req, res) => {
+  const { id,id_user } = req.params;
+  try {
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+    //Verefy if already voted
+    if (post.upvotedBy.includes(id_user)) {
+      return res.status(400).send("User has already upvoted this post");
+    }
+    //ADD user if not 
+    post.upvotedBy.push(id_user);
+    post.rate += 1;
+    await post.save();
+    res.status(200).send("Post rate up successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error upvoting post");
+  }
+});
+
+post_router.post("/downvote/:id/:id_user", async (req, res) => {
+  const { id, id_user } = req.params;
+  try {
+    const post = await Post.findById(id);
+    if (!post) {
+      return res.status(404).send("Post not found");
+    }
+    if (post.upvotedBy.includes(id_user)) {
+      return res.status(400).send("User has already upvoted this post");
+    }
+    post.rate -= 1;
+    await post.save();
+    res.status(200).send("Post downvoted successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error downvoting post");
+  }
+});
+
 export default post_router;

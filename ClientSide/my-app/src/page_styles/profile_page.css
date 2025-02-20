@@ -1,0 +1,88 @@
+
+.Main-card{
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    width: 400px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+.Application-card
+{
+    position: absolute;
+    top: 100px;
+    left: 950px;
+    width: 400px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+.PostCreated-card{
+    position: absolute;
+    top: 100px;
+    left: 500px;
+    width: 400px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+
+.profile-header {
+    background-color: #b0c5a2;
+    padding: 20px;
+    color: #fff;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-email {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.profile-content {
+    padding: 20px;
+}
+
+.file-upload-label {
+    display: inline-block;
+    margin: 10px 0;
+    background-color: #b0c5a2;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.file-upload-input {
+    display: none;
+}
+
+.user-info {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.user-info h2 {
+    margin-bottom: 10px;
+    color: #4a4a4a;
+}
+
+.user-info p {
+    margin: 5px 0;
+    color: #555;
+}

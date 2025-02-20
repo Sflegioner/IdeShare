@@ -76,4 +76,29 @@ user_router.post("/user_photo", upload.single("image"), async (req, res) => {
     }
 });
 
+user_router.put("/user", async (req, res) => {
+    try {
+        const { id, username, useremail } = req.body;
+
+        if (!id || !username || !useremail) {
+            return res.status(400).json({ message: "Invalid data" });
+        }
+
+        const updatedUser = await UserPhoto.findOneAndUpdate(
+            { user_id: id },
+            { $set: { username, useremail } },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ message: "User updated successfully!", user: updatedUser });
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 export default user_router;

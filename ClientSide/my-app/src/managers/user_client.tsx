@@ -82,6 +82,22 @@ class UserClient {
         const { image_path } = await response.json();
         return image_path;
     }
+    async PutUser(id: string, username: string, useremail: string): Promise<UserInterface> {
+        const response = await fetch(`${this.baseAPIurl}/user`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ id, username, useremail }),
+        });
+    
+        if (!response.ok) {
+            throw new Error(`Error updating user: ${response.statusText}`);
+        }
+    
+        const user: UserInterface = await response.json();
+        console.log('Successfully updated user:', user);
+        return user;
+    }
 }
 
 export default UserClient;

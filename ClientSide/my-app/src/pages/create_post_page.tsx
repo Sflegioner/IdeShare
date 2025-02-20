@@ -63,7 +63,9 @@ export const CreatePostPage = () => {
                 wow_reactions: formData.wow_reactions
             },
             views: formData.views,
-            tags: formData.tags
+            tags: formData.tags,
+            rate: 0,
+            upvotedBy:[],
         };
 
         try {

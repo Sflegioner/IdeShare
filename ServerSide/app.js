@@ -8,6 +8,7 @@ import application_router from "./API/api_application_interactions.js";
 import search_user_route from "./API/api_serch_engine.js";
 import api_user_photo from "./API/sub_user_api/api_user_photo.js"
 
+
 const app = express();
 app.use(express.json()); //middleware to use json
 const mongodb = mongoose;
@@ -35,6 +36,7 @@ app.use("/API", post_router);
 app.use("/API", application_router);
 app.use("/API", search_user_route);
 app.use("/API_USER/", api_user_photo);
+
 
 app.listen(PORT, () => {
   console.log("SERVER START");

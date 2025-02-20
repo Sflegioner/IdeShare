@@ -13,6 +13,8 @@ const UserPost = new mongoose.Schema({
   },
   views: { type: Number, default: 0 },
   tags:[],
+  rate:{type: Number, default: 0},
+  upvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 const Post = mongoose.model("Post", UserPost);
 

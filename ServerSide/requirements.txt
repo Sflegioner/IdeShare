@@ -2,3 +2,5 @@ mongoose
 cors
 node-fetch //react
 multer
+dotenv
+openai

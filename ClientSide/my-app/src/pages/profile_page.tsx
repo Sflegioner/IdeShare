@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../page_styles/main_page.css';
+import '../page_styles/profile_page.css'
 import UserClient from "../managers/user_client";
 import { Cookies } from "react-cookie";
 
@@ -7,7 +8,7 @@ export const ProfilePage = () => {
     const [avatar, setAvatar] = useState<string>('');
     const [user, setUser] = useState<{ username: string; useremail: string } | null>(null);
     const cookies = new Cookies();
-    const userId = cookies.get("userId"); 
+    const userId = cookies.get("userId");
     const userClient = new UserClient();
 
     useEffect(() => {
@@ -18,9 +19,8 @@ export const ProfilePage = () => {
 
                 const avatarPath = await userClient.GetUserPhotoAvatar(userId);
                 setAvatar(avatarPath);
-                console.log(avatar);
             } catch (error) {
-                console.error('No Avatar', error);
+                console.error('Error fetching user data:', error);
             }
         };
         fetchData();
@@ -37,29 +37,45 @@ export const ProfilePage = () => {
         }
     };
 
-    return (
-        <>
-            <div className="section-right">
-                <div className="picture">
-                    <p className="picture-text">Profile page of {user?.username}</p>
-                    <img 
-                        src={avatar || '/path/to/default-avatar.png'} 
-                        style={{ borderRadius: 20, width: 100, height: 100 }} 
-                        alt="User Avatar" 
-                        onError={(e) => {
-                            e.currentTarget.src = '/path/to/default-avatar.png';
-                        }}
-                    />
-                </div>
-                <p>
-                    <strong>Username:</strong> {user?.username || 'Loading...'}
-                    <br />
-                    <strong>Email:</strong> {user?.useremail || 'Loading...'}
-                </p>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-                <p>Post created by user:</p>
-                <p>Joined application</p>
+    return (<>
+
+        <div className="Main-card">
+            <div className="profile-header">
+                <img
+                    src={avatar || '/path/to/default-avatar.png'}
+                    alt="User Avatar"
+                    className="profile-avatar"
+                    onError={(e) => {
+                        e.currentTarget.src = '/path/to/default-avatar.png';
+                    }}
+                />
+                <h1>{user?.username || 'Loading...'}</h1>
+                <p className="profile-email">{user?.useremail || 'Loading...'}</p>
             </div>
-        </>
+            <div className="profile-content">
+                <label className="file-upload-label">
+                    Change Avatar
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="file-upload-input"
+                    />
+                </label>
+                <div className="user-info">
+                    <h2>User Info</h2>
+                    <p><strong>Username:</strong> {user?.username || 'Loading...'}</p>
+                    <p><strong>Email:</strong> {user?.useremail || 'Loading...'}</p>
+                </div>
+            </div>
+        </div>
+        <div className="PostCreated-card">
+            <p>Post Created:</p>
+        </div>
+        <div className="Application-card">
+            <p>Application joined:</p>
+        </div>
+    </>
+
     );
 };

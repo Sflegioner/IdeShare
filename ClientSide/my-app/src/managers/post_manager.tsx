@@ -10,6 +10,8 @@ export interface PostInterface {
     views: number;
     id?: string;
     tags: Array<string>;
+    rate: number;
+    upvotedBy: Array<string>;
 }
 
 export class PostClient {
@@ -33,7 +35,10 @@ export class PostClient {
             },
             views: item.views,
             id: item._id,
-            tags: item.tags || []
+            tags: item.tags || [],
+            rate: item.rate,
+            upvotedBy: item.upvotedBy || [] 
+            
         }));
         console.log(objectInterface);
         return objectInterface;
