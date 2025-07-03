@@ -2,17 +2,20 @@ IdeShare
 IdeShare is an online idea-sharing and collaboration platform where users can post project concepts and find collaborators.
 
 IdeShare/
-├── client/            # Frontend (React) source code
-│   ├── public/        # Static assets (index.html, images, etc.)
-│   └── src/           # React components and utilities
-├── server/            # Backend (Express) source code
-│   ├── controllers/   # Route handlers / business logic
-│   ├── models/        # Database schemas (MongoDB/Mongoose)
-│   ├── routes/        # Express route definitions
-│   └── server.js      # App entry point (server setup)
-├── .env               # Environment configuration (e.g., DB URIs, secrets)
-├── package.json       # npm dependencies and scripts
-└── README.md          # Project documentation (this file)
+├── client/            
+│   ├── public/        
+│   └── src/           
+├── server/            
+│   ├── controllers/   
+│   ├── models/        
+│   ├── routes/        
+│   └── server.js      
+├── .env               
+├── package.json       
+└── README.md          
+
+
+
 This separation (e.g. client/ vs. server/) makes it easy to develop and deploy each part. You would run the React app in client/ and the Express API in server/, communicating via HTTP requests.
 Installation and Setup
 To set up IdeShare locally, follow these steps:
