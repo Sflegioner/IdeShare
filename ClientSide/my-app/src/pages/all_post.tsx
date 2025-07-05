@@ -111,30 +111,15 @@ export const AllPostPage = () => {
               <div className="reactions-bar">
                 <ul className="ul-reactions">
                   <li className="reaction-item">
-                    <img
-                      src="like.png"
-                      width={20}
-                      height={20}
-                      alt="like"
-                    />
+                    <img src="like.png" width={20} height={20} alt="like" />
                     <span>{post.reaction.likes}</span>
                   </li>
                   <li className="reaction-item">
-                    <img
-                      src="poop.png"
-                      width={20}
-                      height={20}
-                      alt="dislike"
-                    />
+                    <img src="poop.png" width={20} height={20} alt="dislike" />
                     <span>{post.reaction.dislikes}</span>
                   </li>
                   <li className="reaction-item">
-                    <img
-                      src="wow.png"
-                      width={20}
-                      height={20}
-                      alt="wow"
-                    />
+                    <img src="wow.png" width={20} height={20} alt="wow" />
                     <span>{post.reaction.wow_reactions}</span>
                   </li>
                 </ul>
